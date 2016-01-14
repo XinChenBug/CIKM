@@ -35,9 +35,9 @@ def Trainngram(inputfile,IsQuery,outputfilename):
            Gramtri.extend(tri_tokens)
     threshold=0
     if IsQuery:
-        threshold =3
+        threshold =2
     else:
-        threshold =10
+        threshold =5
 
     Gram_Numone={}
     for item in Gramone:
@@ -47,7 +47,7 @@ def Trainngram(inputfile,IsQuery,outputfilename):
              Gram_Numone[item]+=1
     deleteItem = []
     for item in Gram_Numone.keys():
-        if Gram_Numone[item]<3:
+        if Gram_Numone[item]<1:
             deleteItem.append(item)
     for item in deleteItem:
         del Gram_Numone[item]
@@ -69,7 +69,7 @@ def Trainngram(inputfile,IsQuery,outputfilename):
              Gram_Numtwo[item]+=1
     deleteItem = []
     for item in Gram_Numtwo.keys():
-        if Gram_Numtwo[item]<3:
+        if Gram_Numtwo[item]<1:
             deleteItem.append(item)
     for item in deleteItem:
         del Gram_Numtwo[item]
@@ -91,7 +91,7 @@ def Trainngram(inputfile,IsQuery,outputfilename):
              Gram_Numtri[item]+=1
     deleteItem = []
     for item in Gram_Numtri.keys():
-        if Gram_Numtri[item]<3:
+        if Gram_Numtri[item]<1:
             deleteItem.append(item)
     for item in deleteItem:
         del Gram_Numtri[item]
@@ -106,3 +106,12 @@ def Trainngram(inputfile,IsQuery,outputfilename):
     json.dump(Gram_Numtri, open(file,'w'))
 
     return
+
+def ReadDictFromFile(filename):
+   f =open(filename,'r')
+   Gram=[]
+   for line in f:
+       Gram.append(line)
+
+   return Gram
+

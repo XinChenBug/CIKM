@@ -18,7 +18,7 @@ def Features_Abstract_F_2():
         #cur = f.readline()
         curtoken = cur.strip('\n')
         curtoken = curtoken.split('\t')
-        if (len(curtoken)>1 and curtoken[0]!='CLASS=UNKNOWN' ):
+        if (len(curtoken)>1 and curtoken[0]!='CLASS=UNKNOWN' and curtoken[0]!='CLASS=TEST' ):
               #feature abstract
               #ngram
               SumValidSample+=1
@@ -81,7 +81,7 @@ def Divide_Data_saved():
     num=int(trainlen/2)
     j=0
     for i in range(num):
-        filelabel_pig_train.writelines(lable[j])
+        filelabel_pig_train.writelines(str(mapLableintoNumber(lable[j])))
         filelabel_pig_train.write('\n')
         fileQuery_pig_train.writelines(Query[j])
         fileQuery_pig_train.write('\n')
@@ -108,7 +108,7 @@ def Divide_Data_saved():
     print("Train-pig-size:")
     print(num)
     for i in range(num_pig_test):
-        filelabel_pig_test.writelines(lable[j])
+        filelabel_pig_test.writelines(str(mapLableintoNumber(lable[j])))
         filelabel_pig_test.write('\n')
         fileQuery_pig_test.writelines(Query[j])
         fileQuery_pig_test.write('\n')
@@ -135,7 +135,7 @@ def Divide_Data_saved():
     print("test-pig-size:")
     print(num_pig_test)
     for i in range(num_test):
-        filelabel_test.writelines(lable[j])
+        filelabel_test.writelines(str(mapLableintoNumber(lable[j])))
         filelabel_test.write('\n')
         fileQuery_test.writelines(Query[j])
         fileQuery_test.write('\n')
@@ -178,11 +178,11 @@ def Divide_Data_saved():
     return
 
 
-def ReadTraining_feature():
+def Read_Training_feature():
 
     filelabel_pig_train = open("D:\\Featureusedfortest\\Lable_pig_train.txt",'r')
-    fileQuery_pig_train = open("D:\\Featureusedfortest\\Query_pig_train.txt",'r')
-    fileTitle_pig_train = open("D:\\Featureusedfortest\\Title_pig_train.txt",'r')
+    #fileQuery_pig_train = open("D:\\Featureusedfortest\\Query_pig_train.txt",'r')
+    #fileTitle_pig_train = open("D:\\Featureusedfortest\\Title_pig_train.txt",'r')
     fileQuery_Len_pig_train = open("D:\\Featureusedfortest\\Query_Len_pig_train.txt",'r')
     fileQuery_Freq_pig_train = open("D:\\Featureusedfortest\\Query_Freq_pig_train.txt",'r')
     fileQuery_First_pig_train = open("D:\\Featureusedfortest\\Query_First_pig_train.txt",'r')
@@ -191,7 +191,7 @@ def ReadTraining_feature():
     lable=[]
     for line in filelabel_pig_train:
         lable.append(line)
-
+    '''
     Query=[]
     for line in fileQuery_pig_train:
         Query.append(line)
@@ -199,6 +199,7 @@ def ReadTraining_feature():
     Title=[]
     for line in fileTitle_pig_train    :
         Title.append(line)
+    '''
 
     Query_Len=[]
     for line in fileQuery_Len_pig_train:
@@ -216,10 +217,10 @@ def ReadTraining_feature():
     for line in fileQuery_Last_pig_train:
         Query_Last.append(line)
 
-    return lable,Query,Title,Query_Len,Query_Freq,Query_First,Query_Last
+    return lable,Query_Len,Query_Freq,Query_First,Query_Last
 
 
-def ReadTest_feature():
+def Read_Test_feature():
 
     filelabel_test = open("D:\\Featureusedfortest\\Lable_test.txt",'r')
     fileQuery_test = open("D:\\Featureusedfortest\\Query_test.txt",'r')
@@ -253,3 +254,40 @@ def ReadTest_feature():
         Query_Last.append(line)
 
     return lable,Query,Query_Len,Query_Freq,Query_First,Query_Last
+
+def Read_pig_Test_feature():
+
+    filelabel_test = open("D:\\Featureusedfortest\\Lable_pig_test.txt",'r')
+    fileQuery_test = open("D:\\Featureusedfortest\\Query_pig_test.txt",'r')
+    fileQuery_Len_test = open("D:\\Featureusedfortest\\Query_Len_pig_test.txt",'r')
+    fileQuery_Freq_test = open("D:\\Featureusedfortest\\Query_Freq_pig_test.txt",'r')
+    fileQuery_First_test = open("D:\\Featureusedfortest\\Query_First_pig_test.txt",'r')
+    fileQuery_Last_test = open("D:\\Featureusedfortest\\Query_Last_pig_test.txt",'r')
+
+    lable=[]
+    for line in filelabel_test:
+        lable.append(line)
+
+    Query=[]
+    for line in fileQuery_test:
+        Query.append(line)
+
+    Query_Len=[]
+    for line in fileQuery_Len_test:
+        Query_Len.append(line)
+
+    Query_Freq=[]
+    for line in fileQuery_Freq_test:
+        Query_Freq.append(line)
+
+    Query_First=[]
+    for line in fileQuery_First_test:
+        Query_First.append(line)
+
+    Query_Last=[]
+    for line in fileQuery_Last_test:
+        Query_Last.append(line)
+
+    return lable,Query,Query_Len,Query_Freq,Query_First,Query_Last
+
+

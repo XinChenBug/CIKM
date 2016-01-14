@@ -1,8 +1,9 @@
 #from feature_abstract_version_two import *
 #from savefeature import *
 from DivideDataintoTrainTesT import*
-
-Divide_Data_saved()
+from generateL1feature import *
+GenerateDict()
+#Divide_Data_saved()
 print("training finished !")
 
 
