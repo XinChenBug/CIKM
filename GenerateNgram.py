@@ -34,11 +34,12 @@ def Trainngram(inputfile,IsQuery,outputfilename):
            Gramtwo.extend(bi_tokens)
            Gramtri.extend(tri_tokens)
     threshold=0
+    '''
     if IsQuery:
-        threshold =2
+        threshold =1
     else:
         threshold =5
-
+    '''
     Gram_Numone={}
     for item in Gramone:
          if Gram_Numone.get(item)==None:
@@ -47,7 +48,7 @@ def Trainngram(inputfile,IsQuery,outputfilename):
              Gram_Numone[item]+=1
     deleteItem = []
     for item in Gram_Numone.keys():
-        if Gram_Numone[item]<1:
+        if Gram_Numone[item]<threshold:
             deleteItem.append(item)
     for item in deleteItem:
         del Gram_Numone[item]
@@ -69,7 +70,7 @@ def Trainngram(inputfile,IsQuery,outputfilename):
              Gram_Numtwo[item]+=1
     deleteItem = []
     for item in Gram_Numtwo.keys():
-        if Gram_Numtwo[item]<1:
+        if Gram_Numtwo[item]<threshold:
             deleteItem.append(item)
     for item in deleteItem:
         del Gram_Numtwo[item]
@@ -91,7 +92,7 @@ def Trainngram(inputfile,IsQuery,outputfilename):
              Gram_Numtri[item]+=1
     deleteItem = []
     for item in Gram_Numtri.keys():
-        if Gram_Numtri[item]<1:
+        if Gram_Numtri[item]<threshold:
             deleteItem.append(item)
     for item in deleteItem:
         del Gram_Numtri[item]

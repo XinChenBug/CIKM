@@ -7,11 +7,19 @@ def GenerateDict():
     Trainngram("D:\\Featureusedfortest\\Query_pig_train.txt",True,"D:\\abstractfeatures\\Query_word_vector")
     Trainngram("D:\\Featureusedfortest\\Title_pig_train.txt",False,"D:\\abstractfeatures\\Title_word_vector")
 
+def GenerateDict_inhalf():
+    Trainngram("D:\\Featureusedfortest\\Query_for_train.txt",True,"D:\\abstractfeatures\\Half_Query_word_vector")
+    Trainngram("D:\\Featureusedfortest\\Title_for_train.txt",False,"D:\\abstractfeatures\\Half_Title_word_vector")
 
 def Build_Query_WordVector(filename):
+    '''
     QueryoneGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Query_word_vectorgram_1_all.txt")
     QuerytwoGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Query_word_vectorgram_2_all.txt")
     QuerytriGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Query_word_vectorgram_3_all.txt")
+    '''
+    QueryoneGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Half_Query_word_vectorgram_1_all.txt")
+    QuerytwoGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Half_Query_word_vectorgram_2_all.txt")
+    QuerytriGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Half_Query_word_vectorgram_3_all.txt")
     Query=ReadDictFromFile(filename)
     inputlen =len(Query)
     Gramone=[]
@@ -75,9 +83,14 @@ def Build_Query_WordVector(filename):
 
 
 def Build_Title_WordVector(filename):
+    '''
     QueryoneGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Title_word_vectorgram_1_all.txt")
     QuerytwoGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Title_word_vectorgram_2_all.txt")
     QuerytriGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Title_word_vectorgram_3_all.txt")
+    '''
+    QueryoneGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Half_Title_word_vectorgram_1_all.txt")
+    QuerytwoGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Half_Title_word_vectorgram_2_all.txt")
+    QuerytriGramDict=ReadDictFromFile("D:\\Featureusedfortest\\Half_Title_word_vectorgram_3_all.txt")
     Query=ReadDictFromFile(filename)
 
     inputlen =len(Query)

@@ -2,8 +2,10 @@
 #from savefeature import *
 from DivideDataintoTrainTesT import*
 from generateL1feature import *
-GenerateDict()
+#GenerateDict()
 #Divide_Data_saved()
+#Divide_Data_inHalf__saved()
+GenerateDict_inhalf()
 print("training finished !")
 
 
