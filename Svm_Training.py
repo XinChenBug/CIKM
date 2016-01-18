@@ -5,8 +5,9 @@ from generateL1feature import *
 #GenerateDict()
 #Divide_Data_saved()
 #Divide_Data_inHalf__saved()
-GenerateDict_inhalf()
+#GenerateDict_inhalf()
 print("training finished !")
+
 
 
 '''

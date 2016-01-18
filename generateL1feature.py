@@ -3,7 +3,109 @@ from nltk.corpus import stopwords
 stopWords = stopwords.words('english')
 from GenerateNgram import *
 import json
+def GeneratedefaultsvmTrainingFile():
+    lable,Query_Len,Query_Freq,Query_First,Query_Last = Read_Training_feature()
+    onegramVectorizerArray,twogramVectorizerArray,trigramVectorizerArray=Build_Query_WordVector("D:\\Featureusedfortest\\Query_pig_train.txt")
+    oneTgramVectorizerArray,twoTgramVectorizerArray = Build_Title_WordVector("D:\\Featureusedfortest\\Query_pig_train.txt")#,triTgramVectorizerArray
+    print("training finished !")
+    featuret=hstack((mat(Query_Freq).T,mat(Query_Len).T))
+    featuret=hstack((featuret,mat(Query_First).T))
+    featuret=hstack((featuret,mat(Query_Last).T))
+    featuret=hstack((featuret,onegramVectorizerArray))
+    featuret=hstack((featuret,twogramVectorizerArray))
+    featuret=hstack((featuret,trigramVectorizerArray))
+    featuret=hstack((featuret,oneTgramVectorizerArray))
+    featuret=hstack((featuret,twoTgramVectorizerArray))
+    #featuret=hstack((featuret,triTgramVectorizerArray))
 
+    return featuret,lable
+def GeneratedefaultsvmtestingFile():
+    tlable,tQuery_Len,tQuery_Freq,tQuery_First,tQuery_Last = Read_pig_Test_feature()
+    tonegramVectorizerArray,ttwogramVectorizerArray,ttrigramVectorizerArray=Build_Query_WordVector("D:\\Featureusedfortest\\Query_pig_test.txt")
+    toneTgramVectorizerArray,ttwoTgramVectorizerArray= Build_Title_WordVector("D:\\Featureusedfortest\\Query_pig_test.txt")#,ttriTgramVectorizerArray
+    testingData=hstack((mat(tQuery_Freq).T,mat(tQuery_Len).T))
+    testingData=hstack((testingData,mat(tQuery_First).T))
+    testingData=hstack((testingData,mat(tQuery_Last).T))
+    testingData=hstack((testingData,tonegramVectorizerArray))
+    testingData=hstack((testingData,ttwogramVectorizerArray))
+    testingData=hstack((testingData,ttrigramVectorizerArray))
+    testingData=hstack((testingData,toneTgramVectorizerArray))
+    testingData=hstack((testingData,ttwoTgramVectorizerArray))
+    #testingData=hstack((testingData,ttriTgramVectorizerArray))
+
+    return testingData,tlable
+
+def GeneratelibsvmTrainingFile():
+    lable,Query_Len,Query_Freq,Query_First,Query_Last = Read_Training_feature()
+    onegramVectorizerArray,twogramVectorizerArray,trigramVectorizerArray=Build_Query_WordVector("D:\\Featureusedfortest\\Query_pig_train.txt")
+    oneTgramVectorizerArray,twoTgramVectorizerArray = Build_Title_WordVector("D:\\Featureusedfortest\\Query_pig_train.txt")#,triTgramVectorizerArray
+
+    #for libsvm
+    trainfile = open("D:\\Featureusedfortest\\libsvmtrain.txt",'w')
+    for i in range(len(lable)):
+        tmp=str(lable[i]).strip('\n')
+        j=1
+        tmp +='  %d:' % j
+        tmp+=str(Query_Freq[i]).strip('\n')
+        j+=1
+        tmp+= '  %d:' % j
+        tmp+=str(Query_Len[i]).strip('\n')
+        j+=1
+        tmp+= '  %d:' % j
+        tmp+=str(Query_First[i]).strip('\n')
+        j+=1
+        tmp+= '  %d:' % j
+        tmp+=str(Query_Last[i]).strip('\n')
+        j+=1
+
+        for item in onegramVectorizerArray[i]:
+             tmp+= '  %d:' % j
+             tmp+=str(item).strip('\n')
+             j+=1
+
+        for item in oneTgramVectorizerArray[i]:
+             tmp+= '  %d:' % j
+             tmp+=str(item).strip('\n')
+             j+=1
+        trainfile.write(tmp)
+        trainfile.write('\n')
+
+    trainfile.close()
+
+def GeneratelibsvmTestingFile():
+    testfile = open("D:\\Featureusedfortest\\libsvmtest.txt",'w')
+    tlable,tQuery_Len,tQuery_Freq,tQuery_First,tQuery_Last = Read_pig_Test_feature()
+    tonegramVectorizerArray,ttwogramVectorizerArray,ttrigramVectorizerArray=Build_Query_WordVector("D:\\Featureusedfortest\\Query_pig_test.txt")
+    toneTgramVectorizerArray,ttwoTgramVectorizerArray= Build_Title_WordVector("D:\\Featureusedfortest\\Query_pig_test.txt")#,ttriTgramVectorizerArray
+    for i in range(len(tlable)):
+        tmp=str(tlable[i]).strip('\n')
+        j=1
+        tmp += '  %d:' % j
+        tmp+=str(tQuery_Freq[i]).strip('\n')
+        j+=1
+        tmp+= '  %d:' % j
+        tmp+=str(tQuery_Len[i]).strip('\n')
+        j+=1
+        tmp+= '  %d:' % j
+        tmp+=str(tQuery_First[i]).strip('\n')
+        j+=1
+        tmp+= '  %d:' % j
+        tmp+=str(Query_Last[i]).strip('\n')
+        j+=1
+
+        for item in tonegramVectorizerArray[i]:
+             tmp+= '  %d:' % j
+             tmp+=str(item).strip('\n')
+             j+=1
+
+        for item in toneTgramVectorizerArray[i]:
+             tmp+= '  %d:' % j
+             tmp+=str(item).strip('\n')
+             j+=1
+        testfile.write(tmp)
+        testfile.write('\n')
+
+    testfile.close()
 def GenerateDict():
     Trainngram("D:\\Featureusedfortest\\Query_pig_train.txt",True,"D:\\abstractfeatures\\Query_word_vector")
     Trainngram("D:\\Featureusedfortest\\Title_pig_train.txt",False,"D:\\abstractfeatures\\Title_word_vector")
